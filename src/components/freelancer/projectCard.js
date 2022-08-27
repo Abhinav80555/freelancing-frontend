@@ -15,6 +15,9 @@ import {
 export default function ProjectCard({project,id}){
 
 
+  
+
+
     return(
         <Center py={6}>
         <Box
@@ -42,6 +45,7 @@ export default function ProjectCard({project,id}){
               {project.projectName}
             </Heading>
             <Text color={'gray.500'}>
+              {project.projectDesc}:
               Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
               nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
               erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
