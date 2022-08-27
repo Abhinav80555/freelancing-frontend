@@ -43,7 +43,7 @@ export function Login() {
     try {
       axios.post("/freelancelogin",{email,password})
       .then(({data})=>{
-        localStorage.setItem("token", (data.freelanceToken));
+        localStorage.setItem("token", (data.token));
         localStorage.setItem("fuser", JSON.stringify(data));
         setFuser(data);
         toast({

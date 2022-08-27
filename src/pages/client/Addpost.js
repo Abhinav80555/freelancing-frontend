@@ -55,13 +55,12 @@ useEffect(()=>{
      
       
           toast({
-            title: "Login Successful",
+            title: "Added sucessfully",
             status: "success",
             duration: 5000,
             isClosable: true,
             position: "bottom"
           });
-          history("/projects")
           setLoading(false);
         })
       } catch (error) {
