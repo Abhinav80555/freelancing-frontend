@@ -6,17 +6,19 @@ import {
   Text,
   Stack,
   useColorModeValue,
+  useToast,
   Button,
 } from "@chakra-ui/react";
 import { MyContext } from "../context";
 import axios from "../../Axios";
 
 export default function ProjectCard({ project, id }) {
-  const { projectList, setProjectList, fuser } = useContext(MyContext);
+  const { projectList, setProjectList} = useContext(MyContext);
   const [loading, setLoading] = useState(false);
   const [freelanceId, setFreelanceId] = useState();
+  const [disabled,setDisabled] = useState(false);
   var projectId={id}
-
+  const toast = useToast();
 
   useEffect(() => {
     const freelanceId = JSON.parse(localStorage.getItem("fuser"));
@@ -30,8 +32,16 @@ export default function ProjectCard({ project, id }) {
     axios
       .post("/freelanceapply/", {freelanceId: freelanceId,projectId:projectId.id})
       .then(({ data }) => {
-        setLoading(false);
         setProjectList(data);
+        toast({
+          title: "applied successfully",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom"
+        });
+        setLoading(false);
+        setDisabled(true);
       })
       .catch((err) => {
         setLoading(false);
@@ -44,14 +54,18 @@ export default function ProjectCard({ project, id }) {
     axios
       .post("/freelancedecline/", { freelanceId: freelanceId,projectId:projectId.id})
       .then(({ data }) => {
-        setLoading(false);
         setProjectList(data);
+        setLoading(false);
+        setDisabled(true);
       })
       .catch((err) => {
         setLoading(false);
         console.log(err);
       });
   };
+
+
+
 
   return (
     <Center py={6}>
@@ -98,6 +112,7 @@ export default function ProjectCard({ project, id }) {
                   style={{ marginTop: 15 }}
                   onClick={declineHandler}
                   isLoading={loading}
+                  disabled={disabled}
                 >
                   Decline
                 </Button>
@@ -108,30 +123,14 @@ export default function ProjectCard({ project, id }) {
                   style={{ marginTop: 15 }}
                   onClick={submitHandler}
                   isLoading={loading}
+                  disabled={disabled}
                 >
                   Apply
                 </Button>
               )}
             </>
           )}
-          {/* <Button
-                  colorScheme="blue"
-                  width="100%"
-                  style={{ marginTop: 15 }}
-                  onClick={submitHandler}
-                  isLoading={loading}
-                >
-                  Apply
-                </Button>
-                <Button
-                  colorScheme="red"
-                  width="100%"
-                  style={{ marginTop: 15 }}
-                  onClick={declineHandler}
-                  isLoading={loading}
-                >
-                  Decline
-                </Button> */}
+    
         </Stack>
       </Box>
     </Center>
