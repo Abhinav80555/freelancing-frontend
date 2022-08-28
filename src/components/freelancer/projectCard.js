@@ -55,6 +55,13 @@ export default function ProjectCard({ project, id }) {
       .post("/freelancedecline/", { freelanceId: freelanceId,projectId:projectId.id})
       .then(({ data }) => {
         setProjectList(data);
+        toast({
+          title: "declined successfully",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom"
+        });
         setLoading(false);
         setDisabled(true);
       })
