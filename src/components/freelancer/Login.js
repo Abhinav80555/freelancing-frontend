@@ -120,7 +120,7 @@ export function Login() {
           colorScheme="red"
           width="100%"
           onClick={() => {
-            setEmail("test@gmail.com");
+            setEmail("free1@gmail.com");
             setPassword("123456");
           }}
         >

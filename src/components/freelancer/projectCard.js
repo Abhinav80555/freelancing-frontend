@@ -89,9 +89,9 @@ export default function ProjectCard({ project, id }) {
           </Text>
         </Stack>
         <Stack mt={6} direction={"row"} spacing={4} align={"center"}>
-          {/* {projectList && (
+          {project && (
             <>
-              {projectList.freelancers.includes(freelanceId) ? (
+              {project.freelancers.includes(freelanceId) ? (
                 <Button
                   colorScheme="red"
                   width="100%"
@@ -113,8 +113,8 @@ export default function ProjectCard({ project, id }) {
                 </Button>
               )}
             </>
-          )} */}
-          <Button
+          )}
+          {/* <Button
                   colorScheme="blue"
                   width="100%"
                   style={{ marginTop: 15 }}
@@ -131,7 +131,7 @@ export default function ProjectCard({ project, id }) {
                   isLoading={loading}
                 >
                   Decline
-                </Button>
+                </Button> */}
         </Stack>
       </Box>
     </Center>
