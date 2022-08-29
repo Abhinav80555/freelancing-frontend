@@ -1,5 +1,6 @@
-import React,{ ReactNode } from 'react';
+import React,{ useContext } from 'react';
 import {Link as ReachLink} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {
   Box,
   Flex,
@@ -17,25 +18,24 @@ import {
   useColorModeValue,
   Stack,
 } from '@chakra-ui/react';
+import axios from "../../Axios"
+import { MyContext } from "../context";
 import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
 
-// const Links = ['Projects', 'Add Projects'];
-// const NavLink = ({ children }: { children: ReactNode }) => (
-//   <Link
-//     px={2}
-//     py={1}
-//     rounded={'md'}
-//     _hover={{
-//       textDecoration: 'none',
-//       bg: useColorModeValue('gray.200', 'gray.700'),
-//     }}
-//     href={'#'}>
-//     {children}
-//   </Link>
-// );
+
 
 export default function ClientNavbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const{ setCuser} = useContext(MyContext);
+const navigate=useNavigate();
+
+  const handleLogout =(e)=>{
+    e.preventDefault()
+      localStorage.removeItem('token')
+      localStorage.removeItem('cuser')
+      setCuser(null);
+      setTimeout(()=>{navigate("/c-auth")},0)
+  }
 
   return (
     <>
@@ -54,9 +54,6 @@ export default function ClientNavbar() {
               as={'nav'}
               spacing={4}
               display={{ base: 'none', md: 'flex' }}>
-              {/* {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))} */}
               <Link  
               as={ReachLink}
               to="/freelancers"
@@ -83,6 +80,7 @@ export default function ClientNavbar() {
           </HStack>
           <Flex alignItems={'center'}>
             <Button
+             onClick={handleLogout}
               variant={'solid'}
               colorScheme={'teal'}
               size={'sm'}
@@ -110,9 +108,6 @@ export default function ClientNavbar() {
         {isOpen ? (
           <Box pb={4} display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4}>
-              {/* {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))} */}
                <Link  
               as={ReachLink}
               to="/freelancers"
