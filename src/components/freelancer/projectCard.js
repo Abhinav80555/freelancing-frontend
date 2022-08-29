@@ -10,13 +10,13 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { MyContext } from "../context";
+
 import axios from "../../Axios";
 
 export default function ProjectCard({ project, id }) {
-  const { projectList, setProjectList} = useContext(MyContext);
+  const {setProjectList} = useContext(MyContext);
   const [loading, setLoading] = useState(false);
   const [freelanceId, setFreelanceId] = useState();
-  const [disabled,setDisabled] = useState(false);
   var projectId={id}
   const toast = useToast();
 
@@ -41,7 +41,6 @@ export default function ProjectCard({ project, id }) {
           position: "bottom"
         });
         setLoading(false);
-        setDisabled(true);
       })
       .catch((err) => {
         setLoading(false);
@@ -63,7 +62,6 @@ export default function ProjectCard({ project, id }) {
           position: "bottom"
         });
         setLoading(false);
-        setDisabled(true);
       })
       .catch((err) => {
         setLoading(false);
@@ -86,15 +84,26 @@ export default function ProjectCard({ project, id }) {
         overflow={"hidden"}
       >
         <Stack>
+          <Box>
           <Text
-            color={"green.500"}
+            color={"red.500"}
             textTransform={"uppercase"}
             fontWeight={800}
             fontSize={"sm"}
             letterSpacing={1.1}
           >
-            {project.userId}
+            <b>Posted by : </b>
+           {project.userName}
           </Text>
+          <Text
+            color={"red.500"}
+            textTransform={"uppercase"}
+            fontWeight={800}
+            fontSize={"sm"}
+            letterSpacing={1.1}
+          >
+           <b>contact:</b> {project.userEmail}
+          </Text></Box>
           <Heading
             color={useColorModeValue("gray.700", "white")}
             fontSize={"2xl"}
@@ -119,7 +128,7 @@ export default function ProjectCard({ project, id }) {
                   style={{ marginTop: 15 }}
                   onClick={declineHandler}
                   isLoading={loading}
-                  disabled={disabled}
+                  
                 >
                   Decline
                 </Button>
@@ -130,7 +139,7 @@ export default function ProjectCard({ project, id }) {
                   style={{ marginTop: 15 }}
                   onClick={submitHandler}
                   isLoading={loading}
-                  disabled={disabled}
+                  
                 >
                   Apply
                 </Button>

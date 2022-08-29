@@ -1,7 +1,5 @@
 import axios from "../../Axios"
-import { MyContext } from "../../components/context";
-import React, { useState,useContext,useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState,useEffect } from "react";
 import {
     Box,
     FormControl,
@@ -24,18 +22,21 @@ function Addpost(){
     const [projectName, setProjectName] = useState();
     const [projectDesc, setProjectDesc] = useState();
     const [userId,setUserId]=useState();
+    const[userName,setUserName]=useState();
+    const[userEmail,setUserEmail]=useState();
     const [loading, setLoading] = useState(false);
 
 useEffect(()=>{
     const userId=JSON.parse(localStorage.getItem('cuser'));
     if(userId){
         setUserId(userId._id)
+        setUserEmail(userId.email)
+        setUserName(userId.name)
     }
 },[])
 
   
     const toast = useToast();
-    const history = useNavigate();
     const submitHandler = async () => {
       setLoading(true);
       if (!projectName || !projectDesc) {
@@ -50,7 +51,7 @@ useEffect(()=>{
         return;
       }
       try {
-        axios.post("/addproject",{projectName,projectDesc,userId})
+        axios.post("/addproject",{projectName,projectDesc,userId,userEmail,userName})
         .then(({data})=>{
      
       
