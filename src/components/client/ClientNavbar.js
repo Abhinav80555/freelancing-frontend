@@ -1,4 +1,4 @@
-import React,{ useContext } from 'react';
+import React,{ useContext,useState } from 'react';
 import {Link as ReachLink} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 import {
@@ -26,15 +26,19 @@ import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
 
 export default function ClientNavbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [loading, setLoading] = useState(false);
   const{ setCuser} = useContext(MyContext);
 const navigate=useNavigate();
 
   const handleLogout =(e)=>{
     e.preventDefault()
+    setLoading(true);
       localStorage.removeItem('token')
       localStorage.removeItem('cuser')
       setCuser(null);
-      setTimeout(()=>{navigate("/c-auth")},0)
+      window.location.replace("/")
+      // setTimeout(()=>{navigate("/")},2000)
+      setLoading(false);
   }
 
   return (
@@ -81,6 +85,7 @@ const navigate=useNavigate();
           <Flex alignItems={'center'}>
             <Button
              onClick={handleLogout}
+             isLoading={loading}
               variant={'solid'}
               colorScheme={'teal'}
               size={'sm'}

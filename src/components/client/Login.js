@@ -49,7 +49,7 @@ import {
           localStorage.setItem("cuser", JSON.stringify(data));
           setCuser(data);
           toast({
-            title: "Added Sucessfully",
+            title: "Login Sucessfully",
             status: "success",
             duration: 5000,
             isClosable: true,

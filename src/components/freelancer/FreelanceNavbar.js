@@ -1,4 +1,5 @@
-import React from 'react';
+import React,{useContext,useState} from 'react';
+import {useNavigate} from "react-router-dom";
 import {
   Box,
   Flex,
@@ -15,10 +16,26 @@ import {
   useColorModeValue,
   Stack,
 } from '@chakra-ui/react';
+import { MyContext } from "../context";
 import { HamburgerIcon, CloseIcon} from '@chakra-ui/icons';
 
 export default function FreelanceNavbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [loading, setLoading] = useState(false);
+  const{ setFuser} = useContext(MyContext);
+
+  const navigate=useNavigate();
+
+  const handleLogout =(e)=>{
+    e.preventDefault()
+    setLoading(true);
+      localStorage.removeItem('token')
+      localStorage.removeItem('fuser')
+      setFuser(null);
+      window.location.replace("/")
+      // setTimeout(()=>{navigate("/")},2000)
+      setLoading(false);
+  }
 
   return (
     <>
@@ -42,6 +59,8 @@ export default function FreelanceNavbar() {
           </HStack>
           <Flex alignItems={'center'}>
             <Button
+            isLoading={loading}
+            onClick={handleLogout}
               variant={'solid'}
               colorScheme={'teal'}
               size={'sm'}
