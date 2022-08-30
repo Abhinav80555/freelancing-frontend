@@ -38,8 +38,8 @@ useEffect(()=>{
         {cuser&&<Route path="/freelancers" element={<Freelancers/>} />}
         {fuser&&<Route path="/projects" element={<Projects/>} />}
         {cuser&&<Route path="/addpost" element={<Addpost/>}/>}
-        <Route path="/404" element={<NotFound />} />
-        <Route path="*" element={<Navigate replace to="/404" />} />
+        {/* <Route path="/404" element={<NotFound />} />
+        <Route path="*" element={<Navigate replace to="/404" />} /> */}
         {/* { (!cuser||!fuser)&&(<Route path="*" element={<Navigate replace to="/" />}/>)} */}
       </Routes>
     </div>

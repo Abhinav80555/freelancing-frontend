@@ -69,7 +69,7 @@ useEffect(()=>{
           setLoading(false);
           setProjectName('')
           setProjectDesc('')
-          window.location.replace("/projects")
+          window.location.replace("/freelancers")
           
           
         })
