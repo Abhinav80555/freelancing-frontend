@@ -16,9 +16,9 @@ import { MyContext } from "../context";
 export function Signup() {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
-  const{ setUser} = useContext(MyContext);
+  const{ setFuser} = useContext(MyContext);
+  const [loading, setLoading] = useState(false);
 
-  const history = useNavigate();
   const toast = useToast();
 
   const [name, setName] = useState();
@@ -28,10 +28,10 @@ export function Signup() {
 
 
   const submitHandler = async () => {
-   
+    setLoading(true);
     if (!email || !password) {
       toast({
-        title: "Please Fill all the Feilds",
+        title: "Please Fill all the Fields",
         status: "warning",
         duration: 5000,
         isClosable: true,
@@ -49,12 +49,13 @@ export function Signup() {
         isClosable: true,
         position: "bottom"
       });
-        setUser(data)
-        window.location.replace("/f-auth")
+        setFuser(data);
+        setLoading(false);
+        window.location.replace("/f-auth") 
       })
     } catch (error) {
       toast({
-        title: "Error Occured!",
+        title: "User Credential Already Exists!",
         description: error.response.data.message,
         status: "error",
         duration: 5000,
@@ -105,6 +106,7 @@ export function Signup() {
         width="100%"
         style={{ marginTop: 15 }}
         onClick={submitHandler}
+        isLoading={loading}
       >
         Sign Up
       </Button>

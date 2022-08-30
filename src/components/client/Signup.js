@@ -19,17 +19,18 @@ export function Signup() {
   const handleClick = () => setShow(!show);
   const{ setCuser} = useContext(MyContext);
 
-  const history = useNavigate();
+  
   const toast = useToast();
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [loading, setLoading] = useState(false);
 
 
 
   const submitHandler = async () => {
-   
+    setLoading(true);
     if (!email || !password) {
       toast({
         title: "Please Fill all the Feilds",
@@ -50,12 +51,13 @@ export function Signup() {
         isClosable: true,
         position: "bottom"
       });
-      setCuser(data)
+      setCuser(data);
+      setLoading(true);
       window.location.replace("/c-auth")  
       })
     } catch (error) {
       toast({
-        title: "Error Occured!",
+        title: "User Credential Already Exists!",
         description: error.response.data.message,
         status: "error",
         duration: 5000,
@@ -107,6 +109,7 @@ export function Signup() {
         width="100%"
         style={{ marginTop: 15 }}
         onClick={submitHandler}
+        isLoading={loading}
       >
         Sign Up
       </Button>
