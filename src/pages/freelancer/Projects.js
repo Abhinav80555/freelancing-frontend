@@ -30,7 +30,7 @@ function Projects(){
           }
         };
       
-        useEffect(() =>{getProjects()});
+        useEffect(() =>{getProjects()},[projectList]);
 
 
 
