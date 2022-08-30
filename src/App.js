@@ -18,20 +18,15 @@ function App() {
 
 
 
-useEffect(()=>{
-  if(cuser){ 
-    axios.post("/auto-clientlogin")
-  .then(({data})=>setCuser(data));
-}else if(fuser){
-  axios.post("/auto-freelancelogin")
- .then(({data})=>setFuser(data));
-}
-},[]);
+useEffect(()=> {
+  const clientUser=JSON.parse(localStorage.getItem('cuser'));
+  setCuser(clientUser)
+},[cuser]);
 
-// useEffect(()=>{
-// axios.post("/auto-freelancelogin")
-//  .then(({data})=>setFuser(data));
-// },[]);
+useEffect(()=>{
+  const freelanceUser=JSON.parse(localStorage.getItem('fuser'));
+  setFuser(freelanceUser)
+},[fuser]);
 
   return (
     <div className="App">

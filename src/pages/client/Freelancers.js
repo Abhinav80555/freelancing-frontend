@@ -30,7 +30,7 @@ function Freelancers(){
           }
         };
       
-        useEffect(() =>{getProjects()});
+        useEffect(() =>{getProjects()},[]);
 
 
 

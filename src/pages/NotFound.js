@@ -19,7 +19,7 @@ import {
             fontWeight={600}
             fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}
             lineHeight={'110%'}>
-           404 Page Not Found
+
            
           </Heading>
         

@@ -1,5 +1,6 @@
 import axios from "../../Axios"
 import React, { useState,useEffect } from "react";
+import {useNavigate} from "react-router-dom";
 import {
     Box,
     FormControl,
@@ -19,12 +20,13 @@ import {
 
 function Addpost(){  
   
-    const [projectName, setProjectName] = useState();
-    const [projectDesc, setProjectDesc] = useState();
+    const [projectName, setProjectName] = useState('');
+    const [projectDesc, setProjectDesc] = useState('');
     const [userId,setUserId]=useState();
     const[userName,setUserName]=useState();
     const[userEmail,setUserEmail]=useState();
     const [loading, setLoading] = useState(false);
+    const navigate=useNavigate();
 
 useEffect(()=>{
     const userId=JSON.parse(localStorage.getItem('cuser'));
@@ -37,11 +39,12 @@ useEffect(()=>{
 
   
     const toast = useToast();
-    const submitHandler = async () => {
+    const submitHandler = async (e) => {
+      e.preventDefault();
       setLoading(true);
       if (!projectName || !projectDesc) {
         toast({
-          title: "Please Fill all the Feilds",
+          title: "Please Fill all the Fields",
           status: "warning",
           duration: 5000,
           isClosable: true,
@@ -53,7 +56,7 @@ useEffect(()=>{
       try {
         axios.post("/addproject",{projectName,projectDesc,userId,userEmail,userName})
         .then(({data})=>{
-     
+          
       
           toast({
             title: "Added sucessfully",
@@ -62,7 +65,13 @@ useEffect(()=>{
             isClosable: true,
             position: "bottom"
           });
+          
           setLoading(false);
+          setProjectName('')
+          setProjectDesc('')
+          window.location.replace("/projects")
+          
+          
         })
       } catch (error) {
         toast({
