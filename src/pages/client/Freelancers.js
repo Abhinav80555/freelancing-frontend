@@ -9,8 +9,14 @@ function Freelancers(){
 
     const toast = useToast();
     const [projectList, setProjectList] = useState([]);
+    const [userId,setUserId]=useState();
 
-
+    useEffect(()=>{
+      const userId=JSON.parse(localStorage.getItem('cuser'));
+      if(userId){
+          setUserId(userId._id)
+      }
+  },[])
 
     const getProjects = async () => {
 
@@ -49,8 +55,7 @@ function Freelancers(){
         <Heading fontSize={{ base: '1xl', md: '4xl', lg: '5xl' }}>
   <Text color={'blue.400'} as={'span'}>Projects Applied by Freelancers</Text></Heading>
 <SimpleGrid columns={2} spacing={10}>
- 
-        {projectList.map((pr) => (
+ {projectList.filter((client)=>client.userId.includes(userId)).map((pr) => (
           <FreelancerCard
             key={pr._id}
             project={pr}
@@ -58,10 +63,6 @@ function Freelancers(){
             {...pr}
           />
         ))}
-
-
-
-
     </SimpleGrid>
     </Box>
     </>

@@ -51,9 +51,7 @@ export function Signup() {
         position: "bottom"
       });
       setCuser(data)
-        // localStorage.setItem("userInfo", JSON.stringify(data));
-        // localStorage.setItem("token",data);
-      setTimeout(()=>{history("/c-auth")},2500)      
+      window.location.replace("/c-auth")  
       })
     } catch (error) {
       toast({

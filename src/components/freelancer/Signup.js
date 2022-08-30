@@ -50,9 +50,7 @@ export function Signup() {
         position: "bottom"
       });
         setUser(data)
-        // localStorage.setItem("userInfo", JSON.stringify(data));
-        // localStorage.setItem("token",data);
-      setTimeout(()=>{history("/f-auth")},2500)      
+        window.location.replace("/f-auth")
       })
     } catch (error) {
       toast({
